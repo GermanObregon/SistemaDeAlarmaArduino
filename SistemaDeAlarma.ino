@@ -86,6 +86,9 @@ void ImprimirEnPantalla(String men){
       while(indice!=6){
         ImprimirEnPantalla("Ingrese Pass.:");
         tecla = teclado.getKey();
+        if(tecla == 'C'){
+          loop();
+          }
         if(tecla){
         lcd.setCursor(cursor,1);
         clave[indice] = tecla;
@@ -134,6 +137,9 @@ void ImprimirEnPantalla(String men){
         while(indice!=6){
           ImprimirEnPantalla("Actual Pass.:");
           tecla = teclado.getKey();
+          if(tecla == 'C'){
+            loop();
+            }
           if(tecla){
             lcd.setCursor(cursor,1);
             clave[indice] = tecla;
@@ -226,8 +232,7 @@ void OnOffLed(){
       }
     }
   }
-
-void loop() {
+ void menu(){
   tecla = teclado.getKey();
   if(tecla){
     if (tecla == 'A'){
@@ -239,7 +244,13 @@ void loop() {
     if (tecla == 'D'){
       OnOffLed();    
     }
+  
   }
+ }
+
+void loop() {
+  
+  menu();
   Sensor();
   Estado();
 }
