@@ -52,6 +52,14 @@ void setup() {
   
 
 }
+ void Estado(){
+    if(estadoAlarma == true){
+      ImprimirEnPantalla(men1);
+    }
+    else{
+       ImprimirEnPantalla(men2);
+    }
+ }
 void ImprimirEnPantalla(String men){
     if(cantidadMov != men.length() - 16){
       cantidadMov = men.length() - 16;
@@ -86,15 +94,23 @@ void ImprimirEnPantalla(String men){
       while(indice!=6){
         ImprimirEnPantalla("Ingrese Pass.:");
         tecla = teclado.getKey();
-        if(tecla == 'C'){
-          loop();
-          }
+        
         if(tecla){
-        lcd.setCursor(cursor,1);
-        clave[indice] = tecla;
-        lcd.print(tecla);
-        indice++;
-        cursor++;
+          if(tecla == 'C'){
+          indice = 0;
+          cursor = 0;
+          lcd.clear();
+          Estado();
+          break;
+          }
+          else{
+            lcd.setCursor(cursor,1);
+            clave[indice] = tecla;
+            lcd.print(tecla);
+            indice++;
+            cursor++;
+            }
+        
         
         }
       }
@@ -137,15 +153,21 @@ void ImprimirEnPantalla(String men){
         while(indice!=6){
           ImprimirEnPantalla("Actual Pass.:");
           tecla = teclado.getKey();
-          if(tecla == 'C'){
-            loop();
-            }
+          
           if(tecla){
-            lcd.setCursor(cursor,1);
-            clave[indice] = tecla;
-            lcd.print(tecla);
-            indice++;
-            cursor++;          
+            if(tecla == 'C'){
+              indice = 0;
+              cursor = 0;
+              lcd.clear();
+              Estado();
+              break;
+              }
+            else {lcd.setCursor(cursor,1);
+                  clave[indice] = tecla;
+                  lcd.print(tecla);
+                  indice++;
+                  cursor++; 
+                  }         
             }
         }
          if (indice == 6){
@@ -197,14 +219,7 @@ void OnOffLed(){
   }
 }
  
- void Estado(){
-    if(estadoAlarma == true){
-      ImprimirEnPantalla(men1);
-    }
-    else{
-       ImprimirEnPantalla(men2);
-    }
- }
+
  
  void OnOffBocina(){
   if(estadoBocina == false){
