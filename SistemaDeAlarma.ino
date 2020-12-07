@@ -28,6 +28,7 @@ int cantidadMov = 0;
 int stringStart = 0 ;
 int stringStop = 16;
 int contador = 0;
+int tiempo = 16;
 
 bool estadoAlarma = false;
 int cursor;
@@ -129,6 +130,18 @@ void ImprimirEnPantalla(String men){
               lcd.clear();
             }
             else{
+              while (tiempo > 0){
+                tiempo = tiempo - 1;
+                ImprimirEnPantalla("Activando en ...");
+                lcd.setCursor(2,1);
+                lcd.print(tiempo);
+                lcd.setCursor(5,1);
+                lcd.print("segundos");
+                
+                delay(1000);
+                lcd.clear();
+                }
+              tiempo = 16;
               estadoAlarma = true;
               delay(2000);
               lcd.clear();    
@@ -183,21 +196,39 @@ void ImprimirEnPantalla(String men){
               ImprimirEnPantalla("Nuevo Pass.:");
               tecla = teclado.getKey();
               if(tecla){
-              lcd.setCursor(cursor,1);
-              clave_default[indice] = tecla;
-              lcd.print(tecla);
-              indice++;
-              cursor++;
+                if(tecla == 'C'){
+                  indice = 0;
+                  cursor = 0;
+                  
+              
+                  lcd.clear();
+                  
+                  break;
+              }
+              else {
+                lcd.setCursor(cursor,1);
+                clave[indice] = tecla;
+                lcd.print(tecla);
+                indice++;
+                cursor++;
+              }
+              
               }
             }
-            
-            ImprimirEnPantalla("Cambio Correcto");
+            if (indice == 6){
+              ImprimirEnPantalla("Cambio Correcto");
+              for (int a = 0 ; a <= 6 ; a++){
+                    clave_default[a] = clave[a];
+                    }
               stringStart = 0;
               stringStop = 16;
               contador = 0;
               delay(2000);
               lcd.clear();
               indice = 0;
+              
+              }
+            
           }
           else{
             ImprimirEnPantalla("Pass Incorrecto");
